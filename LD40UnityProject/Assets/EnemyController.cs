@@ -8,6 +8,9 @@ public class EnemyController : MonoBehaviour
     public EnemyType type;
     public float speed = 2f;
     private Transform player;
+    public float damage;
+    public float criticChance;
+    public float criticValue;
 
     void Start()
     {
@@ -25,6 +28,9 @@ public class EnemyController : MonoBehaviour
                 break;
             case EnemyType.Static:
                 break;
+            case EnemyType.Explode:
+                ExplodeBehaviour();
+                break;
         }
     }
 
@@ -37,6 +43,14 @@ public class EnemyController : MonoBehaviour
         GetComponent<Rigidbody2D>().MovePosition(transform.position + dir * Time.deltaTime * speed);
     }
 
+    void ExplodeBehaviour()
+    {
+        var dir = player.position - transform.position;
+        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        dir.Normalize();
+        GetComponent<Rigidbody2D>().MovePosition(transform.position + dir * Time.deltaTime * speed);
+    }
     void RangedBehaviour()
     {
         var dir = player.position - transform.position;
@@ -50,14 +64,36 @@ public class EnemyController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+
         if (other.tag == "Player")
         {
-            player.GetComponent<TopDownController>().Hit(10);
+            float damageDone = damage;
+            if (Random.value*100 > criticChance)
+            {
+                damageDone += criticValue;
+            }
+            float randomize;
+            if((randomize = Random.value) < 0.5)
+            {
+                damageDone -= damageDone * randomize;
+            }
+            else
+            {
+                damageDone += damageDone * (randomize -(float) 0.5);
+            }
+            
+
+            player.GetComponent<TopDownController>().Hit(damageDone);
+        }else if (other.tag == "bullet")
+        {
+
         }
     }
+
+
 }
 
 public enum EnemyType
 {
-    Melee, Ranged, Static
+    Melee, Ranged, Static, Explode
 }

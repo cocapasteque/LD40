@@ -76,4 +76,5 @@ public class TopDownController : MonoBehaviour
         health -= damage;
         insanity += 5;
     }
+
 }
