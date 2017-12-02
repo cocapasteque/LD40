@@ -309,8 +309,10 @@ MonoBehaviour:
     type: 2}
   combatText: {fileID: 1361285863823996, guid: b6534e997098b814fa69ad2c98f5f0a7, type: 2}
   hurtSound: {fileID: 8300000, guid: 8e2b30bf4fe01f44385fd9c4982c36c4, type: 3}
+  deathSound: {fileID: 8300000, guid: c48a4ea7cebfed14c8f96e3f90da5ee5, type: 3}
   type: 3
   speed: 2
+  health: 200
   damage: 50
   criticChance: 20
   criticValue: 30

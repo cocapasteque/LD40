@@ -11,9 +11,12 @@ public class UiController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	    var healthValue = GameObject.Find("Player").GetComponent<TopDownController>().health;
-	    var insanityValue = GameObject.Find("Player").GetComponent<TopDownController>().insanity;
-        health.GetComponent<RectTransform>().localScale = new Vector3(healthValue/100,1,1);
-	    insanity.GetComponent<RectTransform>().localScale = new Vector3(insanityValue / 100, 1, 1);
+	    if (!GameController.instance.isGameOver)
+	    {
+	        var healthValue = GameObject.Find("Player").GetComponent<TopDownController>().health;
+	        var insanityValue = GameObject.Find("Player").GetComponent<TopDownController>().insanity;
+	        health.GetComponent<RectTransform>().localScale = new Vector3(healthValue / 100, 1, 1);
+	        insanity.GetComponent<RectTransform>().localScale = new Vector3(insanityValue / 100, 1, 1);
+	    }
 	}
 }

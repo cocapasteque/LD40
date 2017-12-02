@@ -8,10 +8,19 @@ public class Room : MonoBehaviour
     public int x;
     public int y;
     public bool completed = false;
-
+    public int enemyAmount = 0;
+    public List<GameObject> enemies;
 	// Use this for initialization
-	void Start () {
-		
+	void Start ()
+	{
+	    enemyAmount = Random.Range(1, 5);
+        enemies = new List<GameObject>();
+	    for(var i = 0; i < enemyAmount; i++)
+	    {
+	        var randenemy = GameController.instance.ennemies[Random.Range(0, GameController.instance.ennemies.Count - 1)];
+	        enemies.Add(randenemy);
+	    }
+
 	}
 	
 	// Update is called once per frame

@@ -11,11 +11,12 @@ public class EnemyController : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject combatText;
     public AudioClip hurtSound;
-
+    public AudioClip deathSound;
 
     public EnemyType type;
     public float speed = 2f;
     private Transform player;
+    public float health = 200;
     public float damage;
     public float criticChance;
     public float criticValue;
@@ -27,6 +28,11 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameController.instance.isGameOver) return;
+        if (health <= 0)
+        {
+            Die();
+        }
         switch (type)
         {
             case EnemyType.Melee:
@@ -74,6 +80,11 @@ public class EnemyController : MonoBehaviour
         //clone.GetComponent<Rigidbody2D>().velocity = dir * clone.GetComponent<Projectile>().spell.Speed;
     }
 
+    void Die()
+    {
+        Destroy(gameObject);
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
 
@@ -102,7 +113,7 @@ public class EnemyController : MonoBehaviour
             var canvas = transform.Find("CanvasE");
             var cbtxt = Instantiate(combatText, canvas.position, canvas.rotation, canvas);
             cbtxt.GetComponent<Text>().text = ((int)other.GetComponent<Projectile>().spell.Damage).ToString();
-
+            health -= other.GetComponent<Projectile>().spell.Damage;
 
             AudioSource audio = GetComponent<AudioSource>();
 

@@ -29,6 +29,12 @@ public class TopDownController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0 || insanity >= 100)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis("Vertical");
         Move(h, v);
@@ -36,12 +42,8 @@ public class TopDownController : MonoBehaviour
 
         var canvas = transform.Find("Canvas");
         canvas.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
-        canvas.rotation = Quaternion.identity;
-
+        canvas.rotation = Quaternion.identity;      
     }
-
-
-
 
     void FixedUpdate()
     {
@@ -78,11 +80,10 @@ public class TopDownController : MonoBehaviour
         }
     }
 
-
     public void Hit(float damageReceived)
     {
-        health -= damageReceived;
-        insanity += 5;
+        if(health >= 0) health -= damageReceived;
+        if (insanity <= 100) insanity += 5;
         var canvas = transform.Find("Canvas");
         var cbtxt = Instantiate(combatText, canvas.position, canvas.rotation, canvas);
         cbtxt.GetComponent<Text>().text = ((int)damageReceived).ToString();
