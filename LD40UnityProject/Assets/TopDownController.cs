@@ -27,11 +27,20 @@ public class TopDownController : MonoBehaviour
 	    var h = Input.GetAxis("Horizontal");
 	    var v = Input.GetAxis("Vertical");
         Move(h, v);
+
+        var mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z - transform.position.z));
+        transform.LookAt(mousePos);
     }
 
     void Move(float h, float v)
     {
         var move = new Vector2(transform.position.x + (h * Time.deltaTime * moveSpeed),transform.position.y + (v * Time.deltaTime * moveSpeed));
         rb.MovePosition(move);
+    }
+
+    void Attack()
+    {
+        if (Input.GetButtonDown("Fire1")) { }
+           
     }
 }
