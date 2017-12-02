@@ -15,21 +15,14 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveLeft()
     {
-        Debug.Log("Move left");
     }
-
     public void MoveRight()
     {
-        Debug.Log("Move right");
     }
-
     public void MoveUp()
     {
-        Debug.Log("Move up");
     }
     public void MoveDown()
     {
-        Debug.Log("Move down");
-
     }
 }
