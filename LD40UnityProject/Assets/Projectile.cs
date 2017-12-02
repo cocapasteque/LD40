@@ -17,6 +17,8 @@ public class Projectile : MonoBehaviour {
         }
         // Destroy bullet
         Destroy(gameObject);
+        var o = Instantiate(spell.explosion, transform.position, Quaternion.identity);
+        Destroy(o, 0.5f);
     }
-        
+       
 }

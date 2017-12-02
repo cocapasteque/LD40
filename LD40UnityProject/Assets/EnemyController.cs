@@ -78,32 +78,30 @@ public class EnemyController : MonoBehaviour
     {
 
         if (other.tag == "Player")
-        {       
+        {
             float damageDone = damage;
-            if (Random.value*100 > criticChance)
+            if (Random.value * 100 > criticChance)
             {
                 damageDone += criticValue;
             }
             float randomize;
-            if((randomize = Random.value) < 0.5)
+            if ((randomize = Random.value) < 0.5)
             {
                 damageDone -= damageDone * randomize;
             }
             else
             {
-                damageDone += damageDone * (randomize -(float) 0.5);
+                damageDone += damageDone * (randomize - (float)0.5);
             }
-            
+
 
             player.GetComponent<TopDownController>().Hit(damageDone);
+
         }else if (other.tag == "Bullet")
         {
             var canvas = transform.Find("CanvasE");
             var cbtxt = Instantiate(combatText, canvas.position, canvas.rotation, canvas);
             cbtxt.GetComponent<Text>().text = ((int)other.GetComponent<Projectile>().spell.Damage).ToString();
-
-          //  var re = transform.Find("Audio Source");
-          //  var sound = Instantiate(hurtSound);
 
 
             AudioSource audio = GetComponent<AudioSource>();
@@ -117,6 +115,7 @@ public class EnemyController : MonoBehaviour
         else
         {
             Debug.Log("Unknown collider: "+ other.tag);
+
         }
     }
 

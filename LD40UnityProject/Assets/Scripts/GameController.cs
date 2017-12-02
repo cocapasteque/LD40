@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour
     public GameObject roomPrefab;
     public GameObject doorPrefab;
 
+    public List<GameObject> ennemies;
+
     public int width = 5;
     public int height = 5;
     public int offset = 10;
@@ -25,6 +27,12 @@ public class GameController : MonoBehaviour
     void Start()
     {
         GenerateMap();
+    }
+
+    void Update()
+    {
+        var mobs = GameObject.FindGameObjectsWithTag("Enemy");
+        if (mobs.Length == 0) currentRoom.completed = true;
     }
 
     void GenerateMap()
@@ -86,5 +94,28 @@ public class GameController : MonoBehaviour
         var door = Instantiate(doorPrefab, doorplaceholder);
         door.GetComponent<Door>().position = DoorPosition.Left;
         door.GetComponent<Door>().transform.eulerAngles = new Vector3(0, 0, 90);
+    }
+
+    void GenerateMobs()
+    {
+        foreach (var o in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            Destroy(o);
+        }
+        var rand = Random.Range(0, 6);
+        for (var i = 0; i < rand; i++)
+        {
+            var randenemy = ennemies[Random.Range(0, ennemies.Count - 1)];
+            var x = Random.Range(currentRoom.transform.position.x - 5, currentRoom.transform.position.x + 5);
+            var y = Random.Range(currentRoom.transform.position.y - 5, currentRoom.transform.position.y + 5);
+            var mob = Instantiate(randenemy, new Vector2(x,y), Quaternion.identity);
+            mob.transform.parent = this.gameObject.transform;
+        }
+    }
+
+    public void NextRoom()
+    {
+        if(!currentRoom.completed)
+            GenerateMobs();
     }
 }
