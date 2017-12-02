@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            player.GetComponent<TopDownController>().Hit();
+            player.GetComponent<TopDownController>().Hit(10);
         }
     }
 }

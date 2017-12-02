@@ -8,6 +8,8 @@ public class TopDownController : MonoBehaviour
 {
     #region Public properties
     public float moveSpeed = 5f;
+    public float health = 100f;
+    public float insanity = 0f;
     #endregion
     #region Private properties
     private Rigidbody2D rb;
@@ -28,8 +30,8 @@ public class TopDownController : MonoBehaviour
 	    var v = Input.GetAxis("Vertical");
         Move(h, v);
         Attack();
-        
-    }
+	    RegenSanity();
+	}
 
     void FixedUpdate()
     {
@@ -49,6 +51,7 @@ public class TopDownController : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            insanity += 5;
             var clone = Instantiate(projectile, transform.position, transform.rotation);
             var mousePos =
                 Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,
@@ -59,8 +62,17 @@ public class TopDownController : MonoBehaviour
         }
     }
 
-    public void Hit()
+    void RegenSanity()
     {
-        Debug.Log("AIE MORRAY");
+        if (Input.GetButton("Fire2"))
+        {
+            
+        }
+    }
+
+    public void Hit(float damage)
+    {
+        health -= damage;
+        insanity += 5;
     }
 }
