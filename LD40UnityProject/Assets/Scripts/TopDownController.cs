@@ -16,12 +16,10 @@ public class TopDownController : MonoBehaviour
     private Rigidbody2D rb;
     #endregion
     public GameObject projectile;
-<<<<<<< HEAD
     public GameObject combatText;
-=======
+
     public GameObject shootPosition;
->>>>>>> 928b3857f05cae63f2bc3ef09310e99b9ef0e84d
-    // Use this for initialization
+
     void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,15 +33,15 @@ public class TopDownController : MonoBehaviour
 	    var v = Input.GetAxis("Vertical");
         Move(h, v);
         Attack();
-<<<<<<< HEAD
+
         var canvas = transform.Find("Canvas");
         canvas.position = new Vector3(transform.position.x,transform.position.y, transform.position.z-1);
         canvas.rotation = Quaternion.identity;
 
     }
-=======
-	}
->>>>>>> 928b3857f05cae63f2bc3ef09310e99b9ef0e84d
+
+
+
 
     void FixedUpdate()
     {
@@ -80,19 +78,16 @@ public class TopDownController : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
+
     public void Hit(float damageReceived)
     {
+        health -= damageReceived;
+        insanity += 5;
         var canvas = transform.Find("Canvas");
-        var cbtxt = Instantiate(combatText,canvas.position,canvas.rotation,canvas);
+        var cbtxt = Instantiate(combatText, canvas.position, canvas.rotation, canvas);
         cbtxt.GetComponent<Text>().text = ((int)damageReceived).ToString();
         Debug.Log((int)damageReceived);
-       //Debug.Log("AIE MORRAY");
-=======
-    public void Hit(float damage)
-    {
-        health -= damage;
-        insanity += 5;
->>>>>>> 928b3857f05cae63f2bc3ef09310e99b9ef0e84d
+        //Debug.Log("AIE MORRAY");
     }
+
 }
