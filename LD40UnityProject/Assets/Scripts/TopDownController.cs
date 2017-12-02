@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -13,7 +14,7 @@ public class TopDownController : MonoBehaviour
     private Rigidbody2D rb;
     #endregion
     public GameObject projectile;
-
+    public GameObject combatText;
     // Use this for initialization
     void Start ()
     {
@@ -28,7 +29,10 @@ public class TopDownController : MonoBehaviour
 	    var v = Input.GetAxis("Vertical");
         Move(h, v);
         Attack();
-        
+        var canvas = transform.Find("Canvas");
+        canvas.position = new Vector3(transform.position.x,transform.position.y, transform.position.z-1);
+        canvas.rotation = Quaternion.identity;
+
     }
 
     void FixedUpdate()
@@ -59,8 +63,12 @@ public class TopDownController : MonoBehaviour
         }
     }
 
-    public void Hit()
+    public void Hit(float damageReceived)
     {
-        Debug.Log("AIE MORRAY");
+        var canvas = transform.Find("Canvas");
+        var cbtxt = Instantiate(combatText,canvas.position,canvas.rotation,canvas);
+        cbtxt.GetComponent<Text>().text = ((int)damageReceived).ToString();
+        Debug.Log((int)damageReceived);
+       //Debug.Log("AIE MORRAY");
     }
 }
