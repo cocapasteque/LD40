@@ -17,6 +17,7 @@ public class AnalogueAttack : MonoBehaviour
 
         var mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z - transform.position.z));
         transform.LookAt(mousePos);
+        
 
     }
 }
