@@ -9,7 +9,6 @@ public class TopDownController : MonoBehaviour
     #region Public properties
     public float moveSpeed = 5f;
     #endregion
-
     #region Private properties
     private Rigidbody2D rb;
     #endregion
@@ -24,12 +23,19 @@ public class TopDownController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	    var h = Input.GetAxis("Horizontal");
+        var h = Input.GetAxis("Horizontal");
 	    var v = Input.GetAxis("Vertical");
         Move(h, v);
 
-        var mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z - transform.position.z));
-        transform.LookAt(mousePos);
+        
+    }
+
+    void FixedUpdate()
+    {
+        var mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+        Vector3 dir = mousePos - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     void Move(float h, float v)
