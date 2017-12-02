@@ -7,12 +7,14 @@ public class GameController : MonoBehaviour
     public static GameController instance;
 
     public GameObject roomPrefab;
+    public GameObject doorPrefab;
 
     public int width = 5;
     public int height = 5;
     public int offset = 10;
     public Room[,] map;
-    public List<GameObject> rooms;
+
+    public Room currentRoom;
 
     void Awake()
     {
@@ -29,16 +31,48 @@ public class GameController : MonoBehaviour
     {
         map = new Room[width, height];
         var mapObject = GameObject.Find("Map");
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < height; i++)
         {
-            for (int j = 0; j < height; j++)
+            for (int j = 0; j < width; j++)
             {
                 var go = Instantiate(roomPrefab);
                 go.transform.parent = mapObject.transform;
                 go.transform.position = new Vector3(i * offset, j * offset);
                 map[i, j] = go.GetComponent<Room>();
-                rooms.Add(go);
+                map[i, j].x = i;
+                map[i, j].y = j;
+
+                if (i != 0) AddLeftDoor(go);
+                if (i != height - 1) AddRightDoor(go);
+                if (j != 0) AddBottomDoor(go);
+                if (j != width - 1) AddTopDoor(go);
             }
         }
+        currentRoom = map[0, 0];
+    }
+
+    void AddBottomDoor(GameObject go)
+    {
+        var doorplaceholder = go.transform.Find("DoorBot");
+        var door = Instantiate(doorPrefab, doorplaceholder);
+        door.GetComponent<Door>().position = DoorPosition.Bottom;
+    }
+    void AddTopDoor(GameObject go)
+    {
+        var doorplaceholder = go.transform.Find("DoorTop");
+        var door = Instantiate(doorPrefab, doorplaceholder);
+        door.GetComponent<Door>().position = DoorPosition.Top;
+    }
+    void AddRightDoor(GameObject go)
+    {
+        var doorplaceholder = go.transform.Find("DoorRight");
+        var door = Instantiate(doorPrefab, doorplaceholder);
+        door.GetComponent<Door>().position = DoorPosition.Right;
+    }
+    void AddLeftDoor(GameObject go)
+    {
+        var doorplaceholder = go.transform.Find("DoorLeft");
+        var door = Instantiate(doorPrefab, doorplaceholder);
+        door.GetComponent<Door>().position = DoorPosition.Left;
     }
 }

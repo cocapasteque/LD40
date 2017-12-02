@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room : MonoBehaviour {
+public class Room : MonoBehaviour
+{
+
+    public int x;
+    public int y;
 
 	// Use this for initialization
 	void Start () {
