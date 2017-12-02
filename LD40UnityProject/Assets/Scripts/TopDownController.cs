@@ -9,12 +9,18 @@ public class TopDownController : MonoBehaviour
 {
     #region Public properties
     public float moveSpeed = 5f;
+    public float health = 100f;
+    public float insanity = 0f;
     #endregion
     #region Private properties
     private Rigidbody2D rb;
     #endregion
     public GameObject projectile;
+<<<<<<< HEAD
     public GameObject combatText;
+=======
+    public GameObject shootPosition;
+>>>>>>> 928b3857f05cae63f2bc3ef09310e99b9ef0e84d
     // Use this for initialization
     void Start ()
     {
@@ -29,11 +35,15 @@ public class TopDownController : MonoBehaviour
 	    var v = Input.GetAxis("Vertical");
         Move(h, v);
         Attack();
+<<<<<<< HEAD
         var canvas = transform.Find("Canvas");
         canvas.position = new Vector3(transform.position.x,transform.position.y, transform.position.z-1);
         canvas.rotation = Quaternion.identity;
 
     }
+=======
+	}
+>>>>>>> 928b3857f05cae63f2bc3ef09310e99b9ef0e84d
 
     void FixedUpdate()
     {
@@ -51,9 +61,16 @@ public class TopDownController : MonoBehaviour
 
     void Attack()
     {
+        if (Input.GetButton("Fire2"))
+        {
+            if(insanity > 0) insanity -= 0.5f;
+            return;
+        }
         if (Input.GetButtonDown("Fire1"))
         {
-            var clone = Instantiate(projectile, transform.position, transform.rotation);
+            if(insanity < 100) insanity += 5;
+            var clone = Instantiate(projectile, shootPosition.transform.position, transform.rotation);
+
             var mousePos =
                 Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,
                     Input.mousePosition.z));
@@ -63,6 +80,7 @@ public class TopDownController : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     public void Hit(float damageReceived)
     {
         var canvas = transform.Find("Canvas");
@@ -70,5 +88,11 @@ public class TopDownController : MonoBehaviour
         cbtxt.GetComponent<Text>().text = ((int)damageReceived).ToString();
         Debug.Log((int)damageReceived);
        //Debug.Log("AIE MORRAY");
+=======
+    public void Hit(float damage)
+    {
+        health -= damage;
+        insanity += 5;
+>>>>>>> 928b3857f05cae63f2bc3ef09310e99b9ef0e84d
     }
 }
