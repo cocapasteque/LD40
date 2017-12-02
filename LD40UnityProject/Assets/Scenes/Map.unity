@@ -259,11 +259,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb4b759b3c0e5240986b121c87e4c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 1975719732725262, guid: 22cb28d5e6f88e443a91389edb9ec0e2, type: 2}
+  roomPrefab: {fileID: 1490208962920080, guid: e002da7d40c0bf44791888fca96e5675, type: 2}
+  doorPrefab: {fileID: 1617341009048508, guid: d757a6996f9fc32479821d868521a061, type: 2}
   width: 5
   height: 5
-  offset: 15
-  rooms: []
+  offset: 35
+  currentRoom: {fileID: 0}
 --- !u!4 &1169817056
 Transform:
   m_ObjectHideFlags: 0
@@ -316,6 +317,20 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1295023100960768, guid: 8005f3e524644aa439240b5299737091, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295023100960768, guid: 8005f3e524644aa439240b5299737091, type: 2}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 1389448579598058, guid: 8005f3e524644aa439240b5299737091, type: 2}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000,
+        type: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8005f3e524644aa439240b5299737091, type: 2}
   m_IsPrefabParent: 0

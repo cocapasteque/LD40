@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114323274244879310}
   - component: {fileID: 61844900515970730}
   m_Layer: 0
-  m_Name: door
+  m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,8 +58,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.235, y: 1.14}
-    newSize: {x: 1.235, y: 1.14}
+    oldSize: {x: 2.47, y: 2.28}
+    newSize: {x: 2.47, y: 2.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -113,12 +113,12 @@ SpriteRenderer:
   m_SortingLayerID: 2052198291
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 85d0055644cf41f409f9c0dc93cb07c5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83c3ecb475bbe294a847510c65404aff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.235, y: 1.14}
+  m_Size: {x: 2.47, y: 2.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
