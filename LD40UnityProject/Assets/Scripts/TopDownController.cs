@@ -15,7 +15,7 @@ public class TopDownController : MonoBehaviour
     private Rigidbody2D rb;
     #endregion
     public GameObject projectile;
-
+    public GameObject shootPosition;
     // Use this for initialization
     void Start ()
     {
@@ -52,7 +52,8 @@ public class TopDownController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             insanity += 5;
-            var clone = Instantiate(projectile, transform.position, transform.rotation);
+            var clone = Instantiate(projectile, shootPosition.transform.position, transform.rotation);
+
             var mousePos =
                 Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,
                     Input.mousePosition.z));
