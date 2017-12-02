@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour
     {
         var doorplaceholder = go.transform.Find("DoorLeft");
         doorplaceholder.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
-        
+            
         var door = Instantiate(doorPrefab, doorplaceholder);
         door.GetComponent<Door>().position = DoorPosition.Left;
         door.GetComponent<Door>().transform.eulerAngles = new Vector3(0, 0, 90);
