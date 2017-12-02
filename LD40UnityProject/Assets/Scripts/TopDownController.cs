@@ -20,22 +20,22 @@ public class TopDownController : MonoBehaviour
 
     public GameObject shootPosition;
 
-    void Start ()
+    void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0;
     }
-	
-	// Update is called once per frame
-	void Update ()
-	{
+
+    // Update is called once per frame
+    void Update()
+    {
         var h = Input.GetAxis("Horizontal");
-	    var v = Input.GetAxis("Vertical");
+        var v = Input.GetAxis("Vertical");
         Move(h, v);
         Attack();
 
         var canvas = transform.Find("Canvas");
-        canvas.position = new Vector3(transform.position.x,transform.position.y, transform.position.z-1);
+        canvas.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
         canvas.rotation = Quaternion.identity;
 
     }
@@ -53,7 +53,7 @@ public class TopDownController : MonoBehaviour
 
     void Move(float h, float v)
     {
-        var move = new Vector2(transform.position.x + (h * Time.deltaTime * moveSpeed),transform.position.y + (v * Time.deltaTime * moveSpeed));
+        var move = new Vector2(transform.position.x + (h * Time.deltaTime * moveSpeed), transform.position.y + (v * Time.deltaTime * moveSpeed));
         rb.MovePosition(move);
     }
 
@@ -61,12 +61,12 @@ public class TopDownController : MonoBehaviour
     {
         if (Input.GetButton("Fire2"))
         {
-            if(insanity > 0) insanity -= 0.5f;
+            if (insanity > 0) insanity -= 0.5f;
             return;
         }
         if (Input.GetButtonDown("Fire1"))
         {
-            if(insanity < 100) insanity += 5;
+            if (insanity < 100) insanity += 5;
             var clone = Instantiate(projectile, shootPosition.transform.position, transform.rotation);
 
             var mousePos =
