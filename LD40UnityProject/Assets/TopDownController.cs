@@ -46,7 +46,11 @@ public class TopDownController : MonoBehaviour
 
     void Attack()
     {
-        if (Input.GetButtonDown("Fire1")) { }
-           
+        if (Input.GetButtonDown("Fire1")) { }      
+    }
+
+    public void Hit()
+    {
+        Debug.Log("AIE MORRAY");
     }
 }
