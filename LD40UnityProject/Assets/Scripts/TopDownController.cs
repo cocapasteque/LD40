@@ -47,6 +47,7 @@ public class TopDownController : MonoBehaviour
 
     void Attack()
     {
+<<<<<<< HEAD:LD40UnityProject/Assets/Scripts/TopDownController.cs
         if (Input.GetButtonDown("Fire1")) {
             var clone = Instantiate(projectile, transform.position, transform.rotation);
             var mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
@@ -55,5 +56,13 @@ public class TopDownController : MonoBehaviour
             clone.GetComponent<Rigidbody2D>().velocity = dir * clone.GetComponent<Projectile>().spell.Speed;
         }
            
+=======
+        if (Input.GetButtonDown("Fire1")) { }      
+    }
+
+    public void Hit()
+    {
+        Debug.Log("AIE MORRAY");
+>>>>>>> 02926316b7b22fe5fc6b7551fc373d1d9af7615c:LD40UnityProject/Assets/TopDownController.cs
     }
 }
