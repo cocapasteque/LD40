@@ -30,7 +30,6 @@ public class TopDownController : MonoBehaviour
 	    var v = Input.GetAxis("Vertical");
         Move(h, v);
         Attack();
-	    RegenSanity();
 	}
 
     void FixedUpdate()
@@ -49,9 +48,14 @@ public class TopDownController : MonoBehaviour
 
     void Attack()
     {
+        if (Input.GetButton("Fire2"))
+        {
+            if(insanity > 0) insanity -= 0.5f;
+            return;
+        }
         if (Input.GetButtonDown("Fire1"))
         {
-            insanity += 5;
+            if(insanity < 100) insanity += 5;
             var clone = Instantiate(projectile, shootPosition.transform.position, transform.rotation);
 
             var mousePos =
@@ -60,14 +64,6 @@ public class TopDownController : MonoBehaviour
             Vector2 dir = mousePos - transform.position;
             dir.Normalize();
             clone.GetComponent<Rigidbody2D>().velocity = dir * clone.GetComponent<Projectile>().spell.Speed;
-        }
-    }
-
-    void RegenSanity()
-    {
-        if (Input.GetButton("Fire2"))
-        {
-            
         }
     }
 
