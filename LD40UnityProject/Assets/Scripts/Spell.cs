@@ -6,6 +6,7 @@ using UnityEngine;
 public class Spell : ScriptableObject
 {
     public Sprite sprite;
+    public GameObject explosion;
     public string Name;
     public float Damage;
     public float Speed;
