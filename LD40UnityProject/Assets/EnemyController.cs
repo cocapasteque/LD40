@@ -1,10 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class EnemyController : MonoBehaviour
 {
+    
+
     public GameObject bulletPrefab;
+    public GameObject combatText;
+    public AudioClip hurtSound;
+
+
     public EnemyType type;
     public float speed = 2f;
     private Transform player;
@@ -32,6 +40,10 @@ public class EnemyController : MonoBehaviour
                 ExplodeBehaviour();
                 break;
         }
+
+        var canvas = transform.Find("CanvasE");
+        canvas.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
+        canvas.rotation = Quaternion.identity;
     }
 
     void MeleeBehaviour()
@@ -84,11 +96,27 @@ public class EnemyController : MonoBehaviour
             
 
             player.GetComponent<TopDownController>().Hit(damageDone);
-        }else if (other.tag == "bullet")
+        }else if (other.tag == "Bullet")
         {
-            var canvas = transform.Find("Canvas");
+            var canvas = transform.Find("CanvasE");
             var cbtxt = Instantiate(combatText, canvas.position, canvas.rotation, canvas);
-            cbtxt.GetComponent<Text>().text = ((int)damageReceived).ToString();
+            cbtxt.GetComponent<Text>().text = ((int)other.GetComponent<Projectile>().spell.Damage).ToString();
+
+          //  var re = transform.Find("Audio Source");
+          //  var sound = Instantiate(hurtSound);
+
+
+            AudioSource audio = GetComponent<AudioSource>();
+
+            if (!audio.isPlaying){
+              
+                audio.Play();
+            }
+           
+        }
+        else
+        {
+            Debug.Log("Unknown collider: "+ other.tag);
         }
     }
 
