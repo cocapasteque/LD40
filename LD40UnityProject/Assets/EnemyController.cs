@@ -68,25 +68,28 @@ public class EnemyController : MonoBehaviour
         if (other.tag == "Player")
         {
             float damageDone = damage;
-            if (Random.value*100 > criticChance)
+            if (Random.value * 100 > criticChance)
             {
                 damageDone += criticValue;
             }
             float randomize;
-            if((randomize = Random.value) < 0.5)
+            if ((randomize = Random.value) < 0.5)
             {
                 damageDone -= damageDone * randomize;
             }
             else
             {
-                damageDone += damageDone * (randomize -(float) 0.5);
+                damageDone += damageDone * (randomize - (float)0.5);
             }
-            
+
 
             player.GetComponent<TopDownController>().Hit(damageDone);
-        }else if (other.tag == "bullet")
+        }
+        else if (other.tag == "bullet")
         {
-
+            var canvas = transform.Find("Canvas");
+            //var cbtxt = Instantiate(combatText, canvas.position, canvas.rotation, canvas);
+            //cbtxt.GetComponent<Text>().text = ((int)damageReceived).ToString();
         }
     }
 
