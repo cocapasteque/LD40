@@ -29,4 +29,4 @@ On controlle un zombie au debut, le but étant d'infecter la totalité de la vil
 Ou infecter des ppersonnes en ville (cas par cas).
 Au fil du temps, la police et le niveau d'alerte montent. Les citoyens évacuent la ville. Lorsqu'il n'y a plus de citoyen, la partie est finie.
 
-
+yo
