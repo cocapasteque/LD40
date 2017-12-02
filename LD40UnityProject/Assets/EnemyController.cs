@@ -66,7 +66,7 @@ public class EnemyController : MonoBehaviour
     {
 
         if (other.tag == "Player")
-        {
+        {       
             float damageDone = damage;
             if (Random.value*100 > criticChance)
             {
@@ -86,7 +86,9 @@ public class EnemyController : MonoBehaviour
             player.GetComponent<TopDownController>().Hit(damageDone);
         }else if (other.tag == "bullet")
         {
-
+            var canvas = transform.Find("Canvas");
+            var cbtxt = Instantiate(combatText, canvas.position, canvas.rotation, canvas);
+            cbtxt.GetComponent<Text>().text = ((int)damageReceived).ToString();
         }
     }
 
