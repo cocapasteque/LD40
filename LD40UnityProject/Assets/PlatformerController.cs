@@ -31,6 +31,7 @@ public class PlatformerController : MonoBehaviour
 	{
 	    var h = Input.GetAxis("Horizontal");
 	    var jump = Input.GetButtonDown("Jump");
+        Debug.Log(h);
         Move(h);
 	    Jump(jump);
 	}
