@@ -5,11 +5,18 @@ using UnityEngine;
 public class Projectile : MonoBehaviour {
 
     public Spell spell;
-    public bool projectileCollide;
+    
 
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        projectileCollide = true; 
+        Debug.Log("Object Entered the trigger");
+        if (other.tag == "Enemy")
+        {
+            // Inflige damage
+        }
+        // Destroy bullet
+        Destroy(gameObject);
     }
+        
 }
