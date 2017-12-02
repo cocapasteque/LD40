@@ -90,7 +90,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spell: {fileID: 11400000, guid: 80e9d2871ac94154f8840f5a27c70d84, type: 2}
-  projectileCollide: 0
 --- !u!212 &212100628348735094
 SpriteRenderer:
   m_ObjectHideFlags: 1
