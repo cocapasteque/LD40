@@ -12,6 +12,7 @@ public class TopDownController : MonoBehaviour
     #region Private properties
     private Rigidbody2D rb;
     #endregion
+    public GameObject projectile;
 
     // Use this for initialization
     void Start ()
@@ -26,7 +27,7 @@ public class TopDownController : MonoBehaviour
         var h = Input.GetAxis("Horizontal");
 	    var v = Input.GetAxis("Vertical");
         Move(h, v);
-
+        Attack();
         
     }
 
@@ -46,7 +47,13 @@ public class TopDownController : MonoBehaviour
 
     void Attack()
     {
-        if (Input.GetButtonDown("Fire1")) { }
+        if (Input.GetButtonDown("Fire1")) {
+            var clone = Instantiate(projectile, transform.position, transform.rotation);
+            var mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+            Vector2 dir = mousePos - transform.position;
+            dir.Normalize();
+            clone.GetComponent<Rigidbody2D>().velocity = dir * clone.GetComponent<Projectile>().spell.Speed;
+        }
            
     }
 }
