@@ -21,6 +21,9 @@ public class CameraMovement : MonoBehaviour
         var offset = GameController.instance.offset;
         var newPos = new Vector3(transform.position.x - offset, transform.position.y, transform.position.z);
         transform.position = newPos;
+        var player = GameObject.FindGameObjectWithTag("Player");
+        player.transform.position = GameController.instance.currentRoom.transform.Find("DoorRight").position;
+        player.transform.position = new Vector3(player.transform.position.x - 1f, player.transform.position.y, player.transform.position.z);
     }
     public void MoveRight()
     {
@@ -30,6 +33,9 @@ public class CameraMovement : MonoBehaviour
         var offset = GameController.instance.offset;
         var newPos = new Vector3(transform.position.x + offset, transform.position.y, transform.position.z);
         transform.position = newPos;
+        var player = GameObject.FindGameObjectWithTag("Player");
+        player.transform.position = GameController.instance.currentRoom.transform.Find("DoorLeft").position;
+        player.transform.position = new Vector3(player.transform.position.x + 1f, player.transform.position.y, player.transform.position.z);
     }
     public void MoveUp()
     {
@@ -38,6 +44,9 @@ public class CameraMovement : MonoBehaviour
         var offset = GameController.instance.offset;
         var newPos = new Vector3(transform.position.x, transform.position.y + offset, transform.position.z);
         transform.position = newPos;
+        var player = GameObject.FindGameObjectWithTag("Player");
+        player.transform.position = GameController.instance.currentRoom.transform.Find("DoorBot").position;
+        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 1f, player.transform.position.z);
     }
     public void MoveDown()
     {
@@ -46,5 +55,8 @@ public class CameraMovement : MonoBehaviour
         var offset = GameController.instance.offset;
         var newPos = new Vector3(transform.position.x, transform.position.y - offset, transform.position.z);
         transform.position = newPos;
+        var player = GameObject.FindGameObjectWithTag("Player");
+        player.transform.position = GameController.instance.currentRoom.transform.Find("DoorTop").position;
+        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y - 1f, player.transform.position.z);
     }
 }

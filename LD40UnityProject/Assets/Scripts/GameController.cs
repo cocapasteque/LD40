@@ -56,23 +56,28 @@ public class GameController : MonoBehaviour
         var doorplaceholder = go.transform.Find("DoorBot");
         var door = Instantiate(doorPrefab, doorplaceholder);
         door.GetComponent<Door>().position = DoorPosition.Bottom;
+        door.GetComponent<Door>().transform.rotation = new Quaternion(0,0,-180,0);
     }
     void AddTopDoor(GameObject go)
     {
         var doorplaceholder = go.transform.Find("DoorTop");
         var door = Instantiate(doorPrefab, doorplaceholder);
         door.GetComponent<Door>().position = DoorPosition.Top;
+        door.GetComponent<Door>().transform.rotation = new Quaternion(0, 0, 0, 0);
     }
     void AddRightDoor(GameObject go)
     {
         var doorplaceholder = go.transform.Find("DoorRight");
         var door = Instantiate(doorPrefab, doorplaceholder);
         door.GetComponent<Door>().position = DoorPosition.Right;
+        door.GetComponent<Door>().transform.eulerAngles = new Vector3(0,0,-90);
+
     }
     void AddLeftDoor(GameObject go)
     {
         var doorplaceholder = go.transform.Find("DoorLeft");
         var door = Instantiate(doorPrefab, doorplaceholder);
         door.GetComponent<Door>().position = DoorPosition.Left;
+        door.GetComponent<Door>().transform.eulerAngles = new Vector3(0, 0, 90);
     }
 }
