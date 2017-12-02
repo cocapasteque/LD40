@@ -45,7 +45,7 @@ public class EnemyController : MonoBehaviour
         dir.Normalize();
 
         var clone = Instantiate(bulletPrefab, transform.position, transform.rotation);
-        clone.GetComponent<Rigidbody2D>().velocity = dir * clone.GetComponent<Projectile>().spell.Speed;
+        //clone.GetComponent<Rigidbody2D>().velocity = dir * clone.GetComponent<Projectile>().spell.Speed;
     }
 
     void OnTriggerEnter2D(Collider2D other)
