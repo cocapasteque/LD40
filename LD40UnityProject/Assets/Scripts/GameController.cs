@@ -54,6 +54,7 @@ public class GameController : MonoBehaviour
     void AddBottomDoor(GameObject go)
     {
         var doorplaceholder = go.transform.Find("DoorBot");
+        doorplaceholder.transform.Find("DoorCollider").GetComponent <BoxCollider2D>().enabled = false;
         var door = Instantiate(doorPrefab, doorplaceholder);
         door.GetComponent<Door>().position = DoorPosition.Bottom;
         door.GetComponent<Door>().transform.rotation = new Quaternion(0,0,-180,0);
@@ -61,6 +62,8 @@ public class GameController : MonoBehaviour
     void AddTopDoor(GameObject go)
     {
         var doorplaceholder = go.transform.Find("DoorTop");
+        doorplaceholder.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
+
         var door = Instantiate(doorPrefab, doorplaceholder);
         door.GetComponent<Door>().position = DoorPosition.Top;
         door.GetComponent<Door>().transform.rotation = new Quaternion(0, 0, 0, 0);
@@ -68,6 +71,8 @@ public class GameController : MonoBehaviour
     void AddRightDoor(GameObject go)
     {
         var doorplaceholder = go.transform.Find("DoorRight");
+        doorplaceholder.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
+
         var door = Instantiate(doorPrefab, doorplaceholder);
         door.GetComponent<Door>().position = DoorPosition.Right;
         door.GetComponent<Door>().transform.eulerAngles = new Vector3(0,0,-90);
@@ -76,6 +81,8 @@ public class GameController : MonoBehaviour
     void AddLeftDoor(GameObject go)
     {
         var doorplaceholder = go.transform.Find("DoorLeft");
+        doorplaceholder.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
+        
         var door = Instantiate(doorPrefab, doorplaceholder);
         door.GetComponent<Door>().position = DoorPosition.Left;
         door.GetComponent<Door>().transform.eulerAngles = new Vector3(0, 0, 90);
