@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 61167736025829408}
   m_Layer: 0
   m_Name: Enemy1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 0}
   type: 3
-  speed: 10
+  speed: 2
   damage: 50
   criticChance: 20
   criticValue: 30

@@ -18,5 +18,5 @@ public class Projectile : MonoBehaviour {
         // Destroy bullet
         Destroy(gameObject);
     }
-        
+       
 }

@@ -29,6 +29,7 @@ public class Door : MonoBehaviour
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            GameController.instance.NextRoom();
         }
     }
 }

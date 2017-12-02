@@ -7,6 +7,7 @@ public class Room : MonoBehaviour
 
     public int x;
     public int y;
+    public bool completed = false;
 
 	// Use this for initialization
 	void Start () {
