@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
     public int offset = 10;
     public Room[,] map;
 
+    public int score = 0;
+
     public bool isGameOver = false;
     public bool gameOverDisplayed = false;
     public Room currentRoom;
@@ -41,7 +43,7 @@ public class GameController : MonoBehaviour
             if (gameOverDisplayed)
                 if (Input.anyKey)
                 {
-                    SceneManager.LoadScene("Map");
+                    SceneManager.LoadScene("MainMenu");
                     Time.timeScale = 1;
                 }
             

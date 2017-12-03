@@ -101,6 +101,7 @@ public class EnemyController : MonoBehaviour
 
     void Die()
     {
+        GameController.instance.score += 10;
         Destroy(gameObject);
     }
 

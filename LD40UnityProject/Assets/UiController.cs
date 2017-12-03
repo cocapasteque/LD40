@@ -10,6 +10,7 @@ public class UiController : MonoBehaviour
     public Transform insanity;
 
     public Text GameOverText;
+    public Text ScoreText;
 
     public Color from;
     public Color to;
@@ -17,6 +18,7 @@ public class UiController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+	    ScoreText.text = "Score : " + GameController.instance.score;
 	    if (!GameController.instance.isGameOver)
 	    {
 	        if (GameOverText.gameObject.activeSelf) GameOverText.gameObject.SetActive(false);
