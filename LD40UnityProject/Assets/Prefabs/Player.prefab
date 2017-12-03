@@ -177,10 +177,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be6d96da8215a5d408b80b47aaebff43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 8
   health: 100
   insanity: 0
-  projectile: {fileID: 1035528482875020, guid: ce0753c91089f7c4b838ad75449017e9, type: 2}
+  projectile: {fileID: 1688728017085716, guid: a80ad11fda2ed2d4e868f2b25869eff1, type: 2}
   combatText: {fileID: 1361285863823996, guid: b6534e997098b814fa69ad2c98f5f0a7, type: 2}
   shootPosition: {fileID: 1257755985939858}
 --- !u!114 &114901074069729968
