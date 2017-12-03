@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     public GameObject playerPrefab;
 
     public List<GameObject> ennemies;
+    public GameObject boss;
 
     public int width = 5;
     public int height = 5;
@@ -22,7 +23,10 @@ public class GameController : MonoBehaviour
     public int score = 0;
 
     public bool isGameOver = false;
+    public bool winGame = false;
     public bool gameOverDisplayed = false;
+    public bool winGameDisplayed = false;
+    public bool bossRoomAssigned = false;
     public Room currentRoom;
 
     void Awake()
@@ -44,9 +48,19 @@ public class GameController : MonoBehaviour
                 if (Input.anyKey)
                 {
                     SceneManager.LoadScene("MainMenu");
-                    Time.timeScale = 1;
                 }
             
+            return;
+        }
+
+        if (winGame)
+        {
+            if (winGameDisplayed)
+                if (Input.anyKey)
+                {
+                    SceneManager.LoadScene("MainMenu");
+                }
+
             return;
         }
 
@@ -78,8 +92,19 @@ public class GameController : MonoBehaviour
                 if (j != 0) AddBottomDoor(go);
                 if (j != width - 1) AddTopDoor(go);
 
-                //AddCrates(go);
+                if ((i > height / 2 || j > width / 2) && !bossRoomAssigned)
+                {
+                    if(Random.Range(0,5) == 1) { 
+                        go.GetComponent<Room>().bossRoom = true;
+                        bossRoomAssigned = true;
+                    }
+                }
+                AddCrates(go);
             }
+        }
+        if (!bossRoomAssigned)
+        {
+            map[width, height].bossRoom = true;
         }
         currentRoom = map[0, 0];
     }
@@ -150,12 +175,27 @@ public class GameController : MonoBehaviour
         }
     }
 
+    void GenerateBoss()
+    {
+        foreach (var o in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            Destroy(o);
+        }
+        var bossgo = Instantiate(boss, currentRoom.bossPosition.position, currentRoom.bossPosition.rotation);
+        bossgo.transform.parent = gameObject.transform;
+        bossgo.GetComponent<EnemyController>().isBoss = true;
+    }
+
     public void NextRoom()
     {
         if (!currentRoom.completed)
         {
             CloseDoors();
-            GenerateMobs();
+            if (currentRoom.bossRoom)
+                GenerateBoss();
+            else
+                GenerateMobs();
+
         }
     }
 

@@ -161,7 +161,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &61278595469754820
 BoxCollider2D:
@@ -344,6 +344,7 @@ MonoBehaviour:
   shootPosition: {fileID: 1522683673426218}
   hurtSound: {fileID: 8300000, guid: 8e2b30bf4fe01f44385fd9c4982c36c4, type: 3}
   deathSound: {fileID: 8300000, guid: c48a4ea7cebfed14c8f96e3f90da5ee5, type: 3}
+  isBoss: 0
   shootSpeed: 2
   currentTime: 0
   type: 1

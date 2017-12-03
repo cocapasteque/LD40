@@ -10,6 +10,7 @@ public class UiController : MonoBehaviour
     public Transform insanity;
 
     public Text GameOverText;
+    public Text WinText;
     public Text ScoreText;
 
     public Color from;
@@ -19,20 +20,27 @@ public class UiController : MonoBehaviour
 	void Update ()
 	{
 	    ScoreText.text = "Score : " + GameController.instance.score;
-	    if (!GameController.instance.isGameOver)
+	    if (GameController.instance.isGameOver)
+	    {
+	        if (!GameOverText.gameObject.activeSelf) GameOverText.gameObject.SetActive(true);
+	        StartCoroutine(FadeText(GameOverText, to));
+	    }
+        else if (GameController.instance.winGame)
+	    {
+	        if (!WinText.gameObject.activeSelf) WinText.gameObject.SetActive(true);
+	        StartCoroutine(FadeText(WinText, to));
+        }
+        else
 	    {
 	        if (GameOverText.gameObject.activeSelf) GameOverText.gameObject.SetActive(false);
+	        if (WinText.gameObject.activeSelf) WinText.gameObject.SetActive(false);
 
-	        var healthValue = GameObject.Find("Player").GetComponent<TopDownController>().health;
+            var healthValue = GameObject.Find("Player").GetComponent<TopDownController>().health;
 	        var insanityValue = GameObject.Find("Player").GetComponent<TopDownController>().insanity;
 	        health.GetComponent<RectTransform>().localScale = new Vector3(healthValue / 100, 1, 1);
 	        insanity.GetComponent<RectTransform>().localScale = new Vector3(insanityValue / 100, 1, 1);
 	    }
-	    else
-	    {
-	        if (!GameOverText.gameObject.activeSelf) GameOverText.gameObject.SetActive(true);
-            StartCoroutine(FadeText(GameOverText, to));
-	    }
+	    
 	}
 
     IEnumerator FadeText(Text text, Color to)
@@ -46,6 +54,7 @@ public class UiController : MonoBehaviour
             yield return null;
         }
         GameController.instance.gameOverDisplayed = true;
+        GameController.instance.winGameDisplayed = true;
         yield return null;
     }
     

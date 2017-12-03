@@ -15,6 +15,8 @@ public class EnemyController : MonoBehaviour
     public AudioClip hurtSound;
     public AudioClip deathSound;
 
+    public bool isBoss;
+
     public float shootSpeed;
     public float currentTime;
 
@@ -101,6 +103,11 @@ public class EnemyController : MonoBehaviour
 
     void Die()
     {
+        if (isBoss)
+        {
+            GameController.instance.score += 150;
+            GameController.instance.winGame = true;
+        }
         GameController.instance.score += 10;
         Destroy(gameObject);
     }
