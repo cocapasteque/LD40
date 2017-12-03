@@ -12,6 +12,7 @@ public class TopDownController : MonoBehaviour
     public float moveSpeed = 5f;
     public float health = 100f;
     public float insanity = 0f;
+    public bool slowed = false;
     #endregion
     #region Private properties
     private Rigidbody2D rb;
@@ -45,12 +46,19 @@ public class TopDownController : MonoBehaviour
         if (h != 0 || v != 0) anim.SetBool("isRunning", true);
         else anim.SetBool("isRunning", false);
 
+        if (insanity >= 80) anim.SetInteger("madnessLevel", 2);
+        else if (insanity >= 50) anim.SetInteger("madnessLevel", 1);
+        else anim.SetInteger("madnessLevel", 0);
+
+        if (Input.GetButton("Fire2")) slowed = true;
+        else slowed = false ;
+
         Move(h, v);
         Attack();
 
         var canvas = transform.Find("Canvas");
         canvas.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
-        canvas.rotation = Quaternion.identity;      
+        canvas.rotation = Quaternion.identity;
     }
 
     void FixedUpdate()
@@ -58,26 +66,40 @@ public class TopDownController : MonoBehaviour
         var mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
         Vector3 dir = mousePos - transform.position;
 
-        if (dir.x <0) playerSprite.flipX = true;
+        if (dir.x < 0) playerSprite.flipX = true;
         else playerSprite.flipX = false;
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-    }
+
+
+        }
 
     void Move(float h, float v)
     {
-        var move = new Vector2(transform.position.x + (h * Time.deltaTime * moveSpeed), transform.position.y + (v * Time.deltaTime * moveSpeed));
-        rb.MovePosition(move);
+        Vector2 move;
+        if (slowed)
+        {
+            Debug.Log("Slow");
+            move = new Vector2(transform.position.x + (h * Time.deltaTime * moveSpeed / 3), transform.position.y + (v * Time.deltaTime * moveSpeed / 3));
+            rb.MovePosition(move);
+            return;
+        }
+        move = new Vector2(transform.position.x + (h * Time.deltaTime * (moveSpeed)), transform.position.y + (v * Time.deltaTime * moveSpeed)); rb.MovePosition(move); 
+     
+
+
     }
 
     void Attack()
     {
         if (Input.GetButton("Fire2"))
         {
+
             if (insanity > 0) insanity -= 0.5f;
             return;
         }
+
         if (Input.GetButtonDown("Fire1"))
         {
             if (insanity < 100) insanity += 5;
@@ -94,7 +116,7 @@ public class TopDownController : MonoBehaviour
 
     public void Hit(float damageReceived)
     {
-        if(health >= 0) health -= damageReceived;
+        if (health >= 0) health -= damageReceived;
         if (insanity <= 100) insanity += 5;
         var canvas = transform.Find("Canvas");
         var cbtxt = Instantiate(combatText, canvas.position, canvas.rotation, canvas);
