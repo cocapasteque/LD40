@@ -50,13 +50,16 @@ public class EnemyController : MonoBehaviour
                 break;
             case EnemyType.Explode:
                 ExplodeBehaviour();
-                break;
+                break;              
         }
 
         var canvas = transform.Find("CanvasE");
         canvas.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
         canvas.rotation = Quaternion.identity;
     }
+
+
+
 
     void MeleeBehaviour()
     {
