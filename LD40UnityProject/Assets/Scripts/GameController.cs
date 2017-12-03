@@ -51,7 +51,11 @@ public class GameController : MonoBehaviour
         }
 
         var mobs = GameObject.FindGameObjectsWithTag("Enemy");
-        if (mobs.Length == 0) currentRoom.completed = true;
+        if (mobs.Length == 0)
+        {
+            OpenDoors();
+            currentRoom.completed = true;
+        }
     }
 
     void GenerateMap()
@@ -73,9 +77,23 @@ public class GameController : MonoBehaviour
                 if (i != height - 1) AddRightDoor(go);
                 if (j != 0) AddBottomDoor(go);
                 if (j != width - 1) AddTopDoor(go);
+
+                //AddCrates(go);
             }
         }
         currentRoom = map[0, 0];
+    }
+
+    void AddCrates(GameObject go)
+    {
+        var room = go.GetComponent<Room>();
+        foreach (var c in room.crates)
+        {
+            if (Random.Range(0, 2) == 1)
+            {
+                c.SetActive(true);
+            }
+        }
     }
 
     void AddBottomDoor(GameObject go)
@@ -134,7 +152,45 @@ public class GameController : MonoBehaviour
 
     public void NextRoom()
     {
-        if(!currentRoom.completed)
+        if (!currentRoom.completed)
+        {
+            CloseDoors();
             GenerateMobs();
+        }
+    }
+
+    public void CloseDoors()
+    {
+        var doorLeft = currentRoom.transform.Find("DoorLeft");
+        var doorTop = currentRoom.transform.Find("DoorTop");
+        var doorRight = currentRoom.transform.Find("DoorRight");
+        var doorBot = currentRoom.transform.Find("DoorBot");
+
+        doorLeft.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = true;
+        doorTop.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = true;
+        doorBot.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = true;
+        doorRight.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = true;
+
+        var dl = doorLeft.GetComponentInChildren<Door>(); if(dl != null) dl.SetDoorClosed();
+        var dt = doorTop.GetComponentInChildren<Door>(); if(dt != null) dt.SetDoorClosed();
+        var db = doorBot.GetComponentInChildren<Door>(); if(db != null) db.SetDoorClosed();
+        var dr = doorRight.GetComponentInChildren<Door>(); if(dr != null) dr.SetDoorClosed();
+    }
+    public void OpenDoors()
+    {
+        var doorLeft = currentRoom.transform.Find("DoorLeft");
+        var doorTop = currentRoom.transform.Find("DoorTop");
+        var doorRight = currentRoom.transform.Find("DoorRight");
+        var doorBot = currentRoom.transform.Find("DoorBot");
+
+        doorLeft.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
+        doorTop.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
+        doorBot.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
+        doorRight.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
+
+        var dl = doorLeft.GetComponentInChildren<Door>(); if (dl != null) dl.SetDoorOpened();
+        var dt = doorTop.GetComponentInChildren<Door>(); if (dt != null) dt.SetDoorOpened();
+        var db = doorBot.GetComponentInChildren<Door>(); if (db != null) db.SetDoorOpened();
+        var dr = doorRight.GetComponentInChildren<Door>(); if (dr != null) dr.SetDoorOpened();
     }
 }

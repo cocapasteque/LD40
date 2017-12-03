@@ -133,7 +133,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1870858590069780}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.830786, y: 3.1421173, z: 0}
+  m_LocalPosition: {x: -3.2214892, y: -2.2531943, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4317280943804598}
@@ -200,7 +200,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.018403769, y: 0.00613451}
+  m_Offset: {x: 0.008631706, y: -0.08269572}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -211,7 +211,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1840377, y: 1.1840372}
+  m_Size: {x: 2.0414443, y: 2.8447804}
   m_EdgeRadius: 0
 --- !u!82 &82064856504400642
 AudioSource:
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a65be30e81b42449d95e4d43b654e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1329899264757004, guid: b3710b942ec530547874d9782c9bcb70,
+  bulletPrefab: {fileID: 1688728017085716, guid: a80ad11fda2ed2d4e868f2b25869eff1,
     type: 2}
   explodePrefab: {fileID: 0}
   combatText: {fileID: 1361285863823996, guid: b6534e997098b814fa69ad2c98f5f0a7, type: 2}

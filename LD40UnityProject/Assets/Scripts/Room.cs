@@ -10,6 +10,7 @@ public class Room : MonoBehaviour
     public bool completed = false;
     public int enemyAmount = 0;
     public List<GameObject> enemies;
+    public List<GameObject> crates;
 	// Use this for initialization
 	void Start ()
 	{
@@ -20,7 +21,6 @@ public class Room : MonoBehaviour
 	        var randenemy = GameController.instance.ennemies[Random.Range(0, GameController.instance.ennemies.Count)];
 	        enemies.Add(randenemy);
 	    }
-
 	}
 	
 	// Update is called once per frame

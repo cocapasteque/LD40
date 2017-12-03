@@ -135,7 +135,8 @@ public class EnemyController : MonoBehaviour
                 Destroy(gameObject);
             }
 
-        }else if (other.tag == "Bullet")
+        }
+        else if (other.tag == "Bullet")
         {
             var canvas = transform.Find("CanvasE");
             var cbtxt = Instantiate(combatText, canvas.position, canvas.rotation, canvas);
@@ -152,8 +153,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Unknown collider: "+ other.tag);
-
+            //Debug.Log("Unknown collider: "+ other.tag);
         }
     }
 

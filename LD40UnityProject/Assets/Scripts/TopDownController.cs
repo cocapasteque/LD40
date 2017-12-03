@@ -22,6 +22,7 @@ public class TopDownController : MonoBehaviour
     public Animator anim;
 
     public GameObject shootPosition;
+    public GameObject shootParent;
     public SpriteRenderer playerSprite;
     void Start()
     {
@@ -41,6 +42,8 @@ public class TopDownController : MonoBehaviour
 
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis("Vertical");
+        Move(h, v);
+        Attack();
 
         if (h != 0 || v != 0) anim.SetBool("isRunning", true);
         else anim.SetBool("isRunning", false);
@@ -50,10 +53,9 @@ public class TopDownController : MonoBehaviour
         else anim.SetInteger("madnessLevel", 0);
 
         if (Input.GetButton("Fire2")) slowed = true;
-        else slowed = false ;
+        else slowed = false;
 
-        Move(h, v);
-        Attack();
+        
 
         var canvas = transform.Find("Canvas");
         canvas.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
@@ -69,25 +71,21 @@ public class TopDownController : MonoBehaviour
         else playerSprite.flipX = false;
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-
-        }
+        shootParent.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
 
     void Move(float h, float v)
     {
+        Debug.Log("H: "+h+" | V: " + v);
         Vector2 move;
         if (slowed)
         {
-            Debug.Log("Slow");
-            move = new Vector2(transform.position.x + (h * Time.deltaTime * moveSpeed / 3), transform.position.y + (v * Time.deltaTime * moveSpeed / 3));
-            rb.MovePosition(move);
+            move = new Vector2(h * Time.deltaTime * (moveSpeed / 3),v * Time.deltaTime * (moveSpeed / 3));
+            rb.velocity = move;
             return;
         }
-        move = new Vector2(transform.position.x + (h * Time.deltaTime * (moveSpeed)), transform.position.y + (v * Time.deltaTime * moveSpeed)); rb.MovePosition(move); 
-     
-
-
+        move = new Vector2(h * Time.deltaTime * moveSpeed, v * Time.deltaTime * moveSpeed);
+        rb.velocity = move;
     }
 
     void Attack()
@@ -101,7 +99,7 @@ public class TopDownController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            if (insanity < 100) insanity += 5;
+            if (insanity < 100) insanity += 10;
             var clone = Instantiate(projectile, shootPosition.transform.position, transform.rotation);
 
             var mousePos =
@@ -111,27 +109,29 @@ public class TopDownController : MonoBehaviour
             dir.Normalize();
             if (insanity > 70)
             {
-                Vector2 dir2 = new Vector2(dir.x + Random.Range(-1f+(dir.x), 1f-(dir.x)), dir.y + Random.Range(-1f + (dir.y), 1f - (dir.y)));
+                Vector2 dir2 = new Vector2(dir.x + Random.Range(-1f + (dir.x), 1f - (dir.x)), dir.y + Random.Range(-1f + (dir.y), 1f - (dir.y)));
                 dir = dir2;
             }
             else if (insanity > 50)
             {
+                Vector2 dir2 = new Vector2(dir.x + Random.Range(-0.5f, 0.5f), dir.y + Random.Range(-0.5f, 0.5f));
+                dir = dir2;
+            }else if (insanity > 25)
+            {
                 Vector2 dir2 = new Vector2(dir.x + Random.Range(-0.35f, 0.35f), dir.y + Random.Range(-0.35f, 0.35f));
                 dir = dir2;
             }
-                    clone.GetComponent<Rigidbody2D>().velocity = dir * clone.GetComponent<Projectile>().spell.Speed;
+            clone.GetComponent<Rigidbody2D>().velocity = dir * clone.GetComponent<Projectile>().spell.Speed;
         }
     }
 
     public void Hit(float damageReceived)
     {
         if (health >= 0) health -= damageReceived;
-        if (insanity <= 100) insanity += 5;
+        if (insanity <= 100) insanity += 20;
         var canvas = transform.Find("Canvas");
         var cbtxt = Instantiate(combatText, canvas.position, canvas.rotation, canvas);
         cbtxt.GetComponent<Text>().text = ((int)damageReceived).ToString();
-        Debug.Log((int)damageReceived);
-        //Debug.Log("AIE MORRAY");
     }
 
 }

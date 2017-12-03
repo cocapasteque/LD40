@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    public Sprite doorClosed;
+    public Sprite doorOpened;
 
     public DoorPosition position;
 
@@ -31,6 +33,16 @@ public class Door : MonoBehaviour
             }
             GameController.instance.NextRoom();
         }
+    }
+
+    public void SetDoorOpened()
+    {
+        GetComponent<SpriteRenderer>().sprite = doorOpened;
+    }
+
+    public void SetDoorClosed()
+    {
+        GetComponent<SpriteRenderer>().sprite = doorClosed;
     }
 }
 
