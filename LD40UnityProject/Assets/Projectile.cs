@@ -11,9 +11,9 @@ public class Projectile : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Object Entered the trigger");
-        if (other.tag == "Enemy")
+        if (other.tag == "Player")
         {
-            // Inflige damage
+            GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>().Hit(spell.Damage);
         }
         // Destroy bullet
         Destroy(gameObject);

@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 61167736025829408}
   - component: {fileID: 82511575175372942}
   m_Layer: 0
-  m_Name: Enemy1
+  m_Name: Enemy3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,7 +120,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1251601195312974}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.601379, y: 3.5537994, z: 0}
+  m_LocalPosition: {x: -5.36, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4288766871655202}
@@ -342,18 +342,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1329899264757004, guid: b3710b942ec530547874d9782c9bcb70,
     type: 2}
-  explodePrefab: {fileID: 1167320302151378, guid: 8a360adacc94e364fa5c58a57bf97cab,
-    type: 2}
+  explodePrefab: {fileID: 125524, guid: 6039a139eed604349a848c21561584af, type: 2}
   combatText: {fileID: 1361285863823996, guid: b6534e997098b814fa69ad2c98f5f0a7, type: 2}
   shootPosition: {fileID: 0}
   hurtSound: {fileID: 8300000, guid: 8e2b30bf4fe01f44385fd9c4982c36c4, type: 3}
   deathSound: {fileID: 8300000, guid: c48a4ea7cebfed14c8f96e3f90da5ee5, type: 3}
   shootSpeed: 0
   currentTime: 0
-  type: 3
-  speed: 2
+  type: 0
+  speed: 3
   health: 200
-  damage: 100
+  damage: 10
   criticChance: 20
   criticValue: 30
 --- !u!114 &114667387287900394

@@ -34,7 +34,6 @@ public class TopDownController : MonoBehaviour
     {
         if (health <= 0 || insanity >= 100)
         {
-            Time.timeScale = 0;
             GameController.instance.isGameOver = true;
             return;
         }
