@@ -137,7 +137,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 421983164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 205.95001, z: 0}
+  m_LocalPosition: {x: 0, y: 186.95001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1040433236}
@@ -288,7 +288,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 549705854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 274.5, y: 206, z: 0}
+  m_LocalPosition: {x: 249.5, y: 187, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 421983165}
@@ -660,15 +660,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4688056375840930, guid: 8005f3e524644aa439240b5299737091, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4688056375840930, guid: 8005f3e524644aa439240b5299737091, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4688056375840930, guid: 8005f3e524644aa439240b5299737091, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4688056375840930, guid: 8005f3e524644aa439240b5299737091, type: 2}
       propertyPath: m_LocalRotation.w
@@ -678,17 +678,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114330404874662348, guid: 8005f3e524644aa439240b5299737091,
-        type: 2}
-      propertyPath: health
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 114330404874662348, guid: 8005f3e524644aa439240b5299737091,
-        type: 2}
-      propertyPath: projectile
-      value: 
-      objectReference: {fileID: 1688728017085716, guid: ee85b35a378f5b14c8e3af4e86339356,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8005f3e524644aa439240b5299737091, type: 2}
   m_IsPrefabParent: 0
@@ -783,11 +772,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 1490208962920080, guid: e002da7d40c0bf44791888fca96e5675, type: 2}
   doorPrefab: {fileID: 1617341009048508, guid: a2fc3a78dddac4f48aa43758bab45f92, type: 2}
+  playerPrefab: {fileID: 1389448579598058, guid: 8005f3e524644aa439240b5299737091,
+    type: 2}
   ennemies:
   - {fileID: 1251601195312974, guid: fa5bacaa81f365848a90765dc11bf584, type: 2}
   width: 5
   height: 5
   offset: 35
+  isGameOver: 0
   currentRoom: {fileID: 0}
 --- !u!4 &1169817056
 Transform:
