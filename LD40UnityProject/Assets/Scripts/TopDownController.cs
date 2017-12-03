@@ -45,7 +45,7 @@ public class TopDownController : MonoBehaviour
         if (h != 0 || v != 0) anim.SetBool("isRunning", true);
         else anim.SetBool("isRunning", false);
 
-        if (insanity >= 80) anim.SetInteger("madnessLevel", 2);
+        if (insanity >= 70) anim.SetInteger("madnessLevel", 2);
         else if (insanity >= 50) anim.SetInteger("madnessLevel", 1);
         else anim.SetInteger("madnessLevel", 0);
 
@@ -109,7 +109,17 @@ public class TopDownController : MonoBehaviour
                     Input.mousePosition.z));
             Vector2 dir = mousePos - transform.position;
             dir.Normalize();
-            clone.GetComponent<Rigidbody2D>().velocity = dir * clone.GetComponent<Projectile>().spell.Speed;
+            if (insanity > 70)
+            {
+                Vector2 dir2 = new Vector2(dir.x + Random.Range(-1f+(dir.x), 1f-(dir.x)), dir.y + Random.Range(-1f + (dir.y), 1f - (dir.y)));
+                dir = dir2;
+            }
+            else if (insanity > 50)
+            {
+                Vector2 dir2 = new Vector2(dir.x + Random.Range(-0.35f, 0.35f), dir.y + Random.Range(-0.35f, 0.35f));
+                dir = dir2;
+            }
+                    clone.GetComponent<Rigidbody2D>().velocity = dir * clone.GetComponent<Projectile>().spell.Speed;
         }
     }
 
