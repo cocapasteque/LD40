@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.WSA.Input;
+using UnityEngine.SceneManagement;
+
 
 public class GameController : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class GameController : MonoBehaviour
     public Room[,] map;
 
     public bool isGameOver = false;
-
+    public bool gameOverDisplayed = false;
     public Room currentRoom;
 
     void Awake()
@@ -35,6 +36,18 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if (isGameOver)
+        {
+            if (gameOverDisplayed)
+                if (Input.anyKey)
+                {
+                    SceneManager.LoadScene("Map");
+                    Time.timeScale = 1;
+                }
+            
+            return;
+        }
+
         var mobs = GameObject.FindGameObjectsWithTag("Enemy");
         if (mobs.Length == 0) currentRoom.completed = true;
     }

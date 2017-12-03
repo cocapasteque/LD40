@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -33,7 +34,8 @@ public class TopDownController : MonoBehaviour
     {
         if (health <= 0 || insanity >= 100)
         {
-            Destroy(this.gameObject);
+            Time.timeScale = 0;
+            GameController.instance.isGameOver = true;
             return;
         }
 
