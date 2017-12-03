@@ -17,13 +17,15 @@ public class TopDownController : MonoBehaviour
     #endregion
     public GameObject projectile;
     public GameObject combatText;
+    public Animator anim;
 
     public GameObject shootPosition;
-
+    public SpriteRenderer playerSprite;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0;
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -37,6 +39,10 @@ public class TopDownController : MonoBehaviour
 
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis("Vertical");
+
+        if (h != 0 || v != 0) anim.SetBool("isRunning", true);
+        else anim.SetBool("isRunning", false);
+
         Move(h, v);
         Attack();
 
@@ -49,6 +55,10 @@ public class TopDownController : MonoBehaviour
     {
         var mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
         Vector3 dir = mousePos - transform.position;
+
+        if (dir.x <0) playerSprite.flipX = true;
+        else playerSprite.flipX = false;
+
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
