@@ -17,7 +17,7 @@ public class Room : MonoBehaviour
         enemies = new List<GameObject>();
 	    for(var i = 0; i < enemyAmount; i++)
 	    {
-	        var randenemy = GameController.instance.ennemies[Random.Range(0, GameController.instance.ennemies.Count - 1)];
+	        var randenemy = GameController.instance.ennemies[Random.Range(0, GameController.instance.ennemies.Count)];
 	        enemies.Add(randenemy);
 	    }
 
