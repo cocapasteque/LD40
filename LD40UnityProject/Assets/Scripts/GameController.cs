@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameController : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class GameController : MonoBehaviour
 
     public GameObject roomPrefab;
     public GameObject doorPrefab;
+    public GameObject playerPrefab;
 
     public List<GameObject> ennemies;
 
@@ -16,6 +19,8 @@ public class GameController : MonoBehaviour
     public int offset = 10;
     public Room[,] map;
 
+    public bool isGameOver = false;
+    public bool gameOverDisplayed = false;
     public Room currentRoom;
 
     void Awake()
@@ -31,6 +36,18 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if (isGameOver)
+        {
+            if (gameOverDisplayed)
+                if (Input.anyKey)
+                {
+                    SceneManager.LoadScene("Map");
+                    Time.timeScale = 1;
+                }
+            
+            return;
+        }
+
         var mobs = GameObject.FindGameObjectsWithTag("Enemy");
         if (mobs.Length == 0) currentRoom.completed = true;
     }
@@ -102,13 +119,13 @@ public class GameController : MonoBehaviour
         {
             Destroy(o);
         }
-        var rand = Random.Range(0, 6);
-        for (var i = 0; i < rand; i++)
+        var enemyIndex = 0;
+        for (var i = 0; i < currentRoom.enemyAmount; i++)
         {
-            var randenemy = ennemies[Random.Range(0, ennemies.Count - 1)];
+
             var x = Random.Range(currentRoom.transform.position.x - 5, currentRoom.transform.position.x + 5);
             var y = Random.Range(currentRoom.transform.position.y - 5, currentRoom.transform.position.y + 5);
-            var mob = Instantiate(randenemy, new Vector2(x,y), Quaternion.identity);
+            var mob = Instantiate(currentRoom.enemies[enemyIndex++], new Vector2(x,y), Quaternion.identity);
             mob.transform.parent = this.gameObject.transform;
         }
     }
