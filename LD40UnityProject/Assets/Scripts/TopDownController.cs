@@ -28,6 +28,15 @@ public class TopDownController : MonoBehaviour
     public GameObject shootPosition;
     public GameObject shootParent;
     public SpriteRenderer playerSprite;
+
+    public static TopDownController instance;
+
+    void Awake()
+    {
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(gameObject);
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -146,17 +155,20 @@ public class TopDownController : MonoBehaviour
         if (health - damageReceived <= 0)
         {
             health = 0;
+            UiController.instance.UpdateBar(health,insanity);
             return;
         }
         if (insanity + 20 >= 100)
         {
             insanity = 100;
+            UiController.instance.UpdateBar(health, insanity);
             return;
         }
 
         if (health >= 0) health -= damageReceived;
         if (insanity <= 100) insanity += 20;
 
+        UiController.instance.UpdateBar(health, insanity);
         var canvas = transform.Find("Canvas");
         var cbtxt = Instantiate(combatText, canvas.position, canvas.rotation, canvas);
         cbtxt.GetComponent<Text>().text = ((int)damageReceived).ToString();

@@ -46,6 +46,7 @@ public class GameController : MonoBehaviour
     {
         if (isGameOver)
         {
+            Debug.Log("GameOver : " + TopDownController.instance.health + " " + TopDownController.instance.insanity);
             if (gameOverDisplayed)
                 if (Input.anyKey)
                 {

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UiController : MonoBehaviour
 {
+    public static UiController instance;
 
     public Transform health;
     public Transform insanity;
@@ -19,6 +20,12 @@ public class UiController : MonoBehaviour
 
     public Color from;
     public Color to;
+
+    void Awake()
+    {
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(gameObject);
+    }
 
 	// Update is called once per frame
 	void Update ()
@@ -57,6 +64,15 @@ public class UiController : MonoBehaviour
 	    }
 	    
 	}
+
+    public void UpdateBar(float healthval, float insanityval)
+    {
+        healthPc.text = healthval + " % ";
+        insanityPc.text = insanityval + " % ";
+
+        health.GetComponent<RectTransform>().localScale = new Vector3(healthval / 100, 1, 1);
+        insanity.GetComponent<RectTransform>().localScale = new Vector3(insanityval / 100, 1, 1);
+    }
 
     IEnumerator FadeText(Text text, Color to)
     {
