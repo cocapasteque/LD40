@@ -16,4 +16,4 @@ MonoBehaviour:
   Name: 
   Damage: 20
   Speed: 15
-  MentalCost: 0
+  MentalCost: 10

@@ -13,9 +13,16 @@ public class Room : MonoBehaviour
     public List<GameObject> enemies;
     public List<GameObject> crates;
     public Transform bossPosition;
+    public Transform potionPosition;
+    public Transform powerupPosition;
 
-	// Use this for initialization
-	void Start ()
+    public bool asTop = false;
+    public bool asLeft = false;
+    public bool asRight = false;
+    public bool asBot = false;
+
+    // Use this for initialization
+    void Start ()
 	{
 	    if (!bossRoom)
 	    {

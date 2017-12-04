@@ -11,7 +11,9 @@ public class GameController : MonoBehaviour
     public GameObject roomPrefab;
     public GameObject doorPrefab;
     public GameObject playerPrefab;
+    public GameObject potionPrefab;
 
+    public List<GameObject> powerUps;
     public List<GameObject> ennemies;
     public GameObject boss;
 
@@ -99,7 +101,23 @@ public class GameController : MonoBehaviour
                         bossRoomAssigned = true;
                     }
                 }
-                AddCrates(go);
+
+                if (Random.Range(0, 3) == 1)
+                { 
+                    var potion = Instantiate(potionPrefab, go.GetComponent<Room>().potionPosition.position,
+                        Quaternion.identity);
+                    potion.transform.SetParent(go.GetComponent<Room>().potionPosition);
+                }
+
+                if (Random.Range(0, 4) == 1)
+                {
+                    var pup = Instantiate(powerUps[Random.Range(0, powerUps.Count)],
+                        go.GetComponent<Room>().powerupPosition.position, Quaternion.identity);
+                    pup.transform.SetParent(go.GetComponent<Room>().powerupPosition);
+                }
+
+                if(!go.GetComponent<Room>().bossRoom) // No crates in boss room
+                    AddCrates(go);
             }
         }
         if (!bossRoomAssigned)
@@ -123,6 +141,7 @@ public class GameController : MonoBehaviour
 
     void AddBottomDoor(GameObject go)
     {
+        go.GetComponent<Room>().asBot = true;
         var doorplaceholder = go.transform.Find("DoorBot");
         doorplaceholder.transform.Find("DoorCollider").GetComponent <BoxCollider2D>().enabled = false;
         var door = Instantiate(doorPrefab, doorplaceholder);
@@ -131,6 +150,7 @@ public class GameController : MonoBehaviour
     }
     void AddTopDoor(GameObject go)
     {
+        go.GetComponent<Room>().asTop = true;
         var doorplaceholder = go.transform.Find("DoorTop");
         doorplaceholder.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
 
@@ -140,6 +160,7 @@ public class GameController : MonoBehaviour
     }
     void AddRightDoor(GameObject go)
     {
+        go.GetComponent<Room>().asRight = true;
         var doorplaceholder = go.transform.Find("DoorRight");
         doorplaceholder.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
 
@@ -150,6 +171,7 @@ public class GameController : MonoBehaviour
     }
     void AddLeftDoor(GameObject go)
     {
+        go.GetComponent<Room>().asLeft = true;
         var doorplaceholder = go.transform.Find("DoorLeft");
         doorplaceholder.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
             
@@ -168,8 +190,8 @@ public class GameController : MonoBehaviour
         for (var i = 0; i < currentRoom.enemyAmount; i++)
         {
 
-            var x = Random.Range(currentRoom.transform.position.x - 5, currentRoom.transform.position.x + 5);
-            var y = Random.Range(currentRoom.transform.position.y - 5, currentRoom.transform.position.y + 5);
+            var x = Random.Range(currentRoom.transform.position.x - 3, currentRoom.transform.position.x + 3);
+            var y = Random.Range(currentRoom.transform.position.y - 3, currentRoom.transform.position.y + 3);
             var mob = Instantiate(currentRoom.enemies[enemyIndex++], new Vector2(x,y), Quaternion.identity);
             mob.transform.parent = this.gameObject.transform;
         }
@@ -206,10 +228,10 @@ public class GameController : MonoBehaviour
         var doorRight = currentRoom.transform.Find("DoorRight");
         var doorBot = currentRoom.transform.Find("DoorBot");
 
-        doorLeft.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = true;
-        doorTop.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = true;
-        doorBot.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = true;
-        doorRight.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = true;
+        if (currentRoom.asLeft) doorLeft.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = true;
+        if (currentRoom.asTop) doorTop.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = true;
+        if (currentRoom.asBot) doorBot.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = true;
+        if (currentRoom.asRight) doorRight.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = true;
 
         var dl = doorLeft.GetComponentInChildren<Door>(); if(dl != null) dl.SetDoorClosed();
         var dt = doorTop.GetComponentInChildren<Door>(); if(dt != null) dt.SetDoorClosed();
@@ -223,10 +245,10 @@ public class GameController : MonoBehaviour
         var doorRight = currentRoom.transform.Find("DoorRight");
         var doorBot = currentRoom.transform.Find("DoorBot");
 
-        doorLeft.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
-        doorTop.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
-        doorBot.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
-        doorRight.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
+        if (currentRoom.asLeft) doorLeft.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
+        if (currentRoom.asTop) doorTop.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
+        if (currentRoom.asBot) doorBot.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
+        if (currentRoom.asRight) doorRight.transform.Find("DoorCollider").GetComponent<BoxCollider2D>().enabled = false;
 
         var dl = doorLeft.GetComponentInChildren<Door>(); if (dl != null) dl.SetDoorOpened();
         var dt = doorTop.GetComponentInChildren<Door>(); if (dt != null) dt.SetDoorOpened();

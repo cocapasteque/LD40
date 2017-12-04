@@ -21,6 +21,10 @@ public class TopDownController : MonoBehaviour
     public GameObject combatText;
     public Animator anim;
 
+    public float shootRate = 1f;
+    public float currentRate;
+    public bool canShoot = true;
+
     public GameObject shootPosition;
     public GameObject shootParent;
     public SpriteRenderer playerSprite;
@@ -38,6 +42,16 @@ public class TopDownController : MonoBehaviour
         {
             GameController.instance.isGameOver = true;
             return;
+        }
+
+        currentRate += Time.deltaTime;
+        if (currentRate >= shootRate)
+        {
+            canShoot = true;
+        }
+        else
+        {
+            canShoot = false;
         }
 
         var h = Input.GetAxis("Horizontal");
@@ -76,7 +90,6 @@ public class TopDownController : MonoBehaviour
 
     void Move(float h, float v)
     {
-        Debug.Log("H: "+h+" | V: " + v);
         Vector2 move;
         if (slowed)
         {
@@ -90,16 +103,19 @@ public class TopDownController : MonoBehaviour
 
     void Attack()
     {
+        // Shoot Timer
         if (Input.GetButton("Fire2"))
         {
 
-            if (insanity > 0) insanity -= 0.5f;
+            if (insanity > 0) insanity -= 1f;
             return;
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1") && canShoot)
         {
-            if (insanity < 100) insanity += 10;
+            currentRate = 0;
+            canShoot = false;
+            if (insanity < 100) insanity += projectile.GetComponent<Projectile>().spell.MentalCost;
             var clone = Instantiate(projectile, shootPosition.transform.position, transform.rotation);
 
             var mousePos =
@@ -127,8 +143,20 @@ public class TopDownController : MonoBehaviour
 
     public void Hit(float damageReceived)
     {
+        if (health - damageReceived <= 0)
+        {
+            health = 0;
+            return;
+        }
+        if (insanity + 20 >= 100)
+        {
+            insanity = 100;
+            return;
+        }
+
         if (health >= 0) health -= damageReceived;
         if (insanity <= 100) insanity += 20;
+
         var canvas = transform.Find("Canvas");
         var cbtxt = Instantiate(combatText, canvas.position, canvas.rotation, canvas);
         cbtxt.GetComponent<Text>().text = ((int)damageReceived).ToString();

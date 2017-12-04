@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(AudioSource))]
 public class EnemyController : MonoBehaviour
 {
-    
+
 
     public GameObject bulletPrefab;
     public GameObject explodePrefab;
@@ -31,6 +31,24 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        if (type == EnemyType.Ranged)
+        {
+            switch (Random.Range(0, 4))
+            {
+                case 0:
+                    bulletPrefab = Resources.Load<GameObject>("Fireball");
+                    break;
+                case 1:
+                    bulletPrefab = Resources.Load<GameObject>("Frostball");
+                    break;
+                case 2:
+                    bulletPrefab = Resources.Load<GameObject>("ArcaneShot");
+                    break;
+                case 3:
+                    bulletPrefab = Resources.Load<GameObject>("CosmicShot");
+                    break;
+            }
+        }
     }
     // Update is called once per frame
     void Update()
@@ -52,7 +70,7 @@ public class EnemyController : MonoBehaviour
                 break;
             case EnemyType.Explode:
                 ExplodeBehaviour();
-                break;              
+                break;
         }
 
         var canvas = transform.Find("CanvasE");
@@ -69,7 +87,7 @@ public class EnemyController : MonoBehaviour
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         dir.Normalize();
-        GetComponent<Rigidbody2D>().MovePosition(transform.position + dir * Time.deltaTime * speed);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(dir.x * Time.deltaTime * speed, dir.y * Time.deltaTime * speed);
     }
 
     void ExplodeBehaviour()
@@ -78,10 +96,11 @@ public class EnemyController : MonoBehaviour
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         dir.Normalize();
-        GetComponent<Rigidbody2D>().MovePosition(transform.position + dir * Time.deltaTime * speed);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(dir.x * Time.deltaTime * speed, dir.y * Time.deltaTime * speed);
     }
     void RangedBehaviour()
     {
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         var dir = player.position - transform.position;
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -117,26 +136,9 @@ public class EnemyController : MonoBehaviour
 
         if (other.tag == "Player")
         {
-            if (type == EnemyType.Melee)
+            player.GetComponent<TopDownController>().Hit(damage);
+            if (type == EnemyType.Explode)
             {
-                float damageDone = damage;
-                if (Random.value * 100 > criticChance)
-                {
-                    damageDone += criticValue;
-                }
-                float randomize;
-                if ((randomize = Random.value) < 0.5)
-                {
-                    damageDone -= damageDone * randomize;
-                }
-                else
-                {
-                    damageDone += damageDone * (randomize - (float) 0.5);
-                }
-                player.GetComponent<TopDownController>().Hit(damageDone);
-            }else if (type == EnemyType.Explode)
-            {
-                player.GetComponent<TopDownController>().Hit(100);
                 var explosion = Instantiate(explodePrefab, transform.position, transform.rotation);
                 Destroy(explosion, 1);
                 Destroy(gameObject);
@@ -152,11 +154,12 @@ public class EnemyController : MonoBehaviour
 
             AudioSource audio = GetComponent<AudioSource>();
 
-            if (!audio.isPlaying){
-              
+            if (!audio.isPlaying)
+            {
+
                 audio.Play();
             }
-           
+
         }
         else
         {

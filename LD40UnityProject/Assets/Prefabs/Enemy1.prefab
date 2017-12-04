@@ -121,7 +121,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1251601195312974}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -348,14 +348,15 @@ MonoBehaviour:
   shootPosition: {fileID: 0}
   hurtSound: {fileID: 8300000, guid: 8e2b30bf4fe01f44385fd9c4982c36c4, type: 3}
   deathSound: {fileID: 8300000, guid: c48a4ea7cebfed14c8f96e3f90da5ee5, type: 3}
+  isBoss: 0
   shootSpeed: 0
   currentTime: 0
   type: 3
-  speed: 2
-  health: 200
-  damage: 100
-  criticChance: 20
-  criticValue: 30
+  speed: 50
+  health: 60
+  damage: 30
+  criticChance: 0
+  criticValue: 0
 --- !u!114 &114667387287900394
 MonoBehaviour:
   m_ObjectHideFlags: 1

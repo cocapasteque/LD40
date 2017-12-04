@@ -12,6 +12,10 @@ public class UiController : MonoBehaviour
     public Text GameOverText;
     public Text WinText;
     public Text ScoreText;
+    public Text healthPc;
+    public Text insanityPc;
+
+    public Image insanityImage;
 
     public Color from;
     public Color to;
@@ -37,6 +41,17 @@ public class UiController : MonoBehaviour
 
             var healthValue = GameObject.Find("Player").GetComponent<TopDownController>().health;
 	        var insanityValue = GameObject.Find("Player").GetComponent<TopDownController>().insanity;
+
+	        if (healthValue > 100) healthValue = 100;
+	        if (healthValue <= 0) healthValue = 0;
+	        if (insanityValue > 100) insanityValue = 100;
+	        if (insanityValue <= 0) insanityValue = 0;
+
+            insanityImage.color = new Color(insanityImage.color.r, insanityImage.color.g, insanityImage.color.b, insanityValue/255);
+
+	        healthPc.text = healthValue + " % ";
+	        insanityPc.text = insanityValue + " % ";
+
 	        health.GetComponent<RectTransform>().localScale = new Vector3(healthValue / 100, 1, 1);
 	        insanity.GetComponent<RectTransform>().localScale = new Vector3(insanityValue / 100, 1, 1);
 	    }
